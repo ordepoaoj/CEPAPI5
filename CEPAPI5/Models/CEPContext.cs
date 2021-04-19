@@ -90,7 +90,7 @@ namespace CEPAPI5.Models
 
                 entity.Property(e => e.Ddd).HasColumnName("DDD");
 
-                entity.Property(e => e.Logradouro)
+                entity.Property(e => e.Endereco1)
                     .HasMaxLength(255)
                     .HasColumnName("Endereco");
 
