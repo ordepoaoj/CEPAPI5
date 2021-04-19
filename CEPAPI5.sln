@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CEPAPI5", "CEPAPI5\CEPAPI5.csproj", "{841D4DE6-0C7B-4EB5-B62C-D1F4530425B1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{841D4DE6-0C7B-4EB5-B62C-D1F4530425B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{841D4DE6-0C7B-4EB5-B62C-D1F4530425B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{841D4DE6-0C7B-4EB5-B62C-D1F4530425B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{841D4DE6-0C7B-4EB5-B62C-D1F4530425B1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8E30FC2E-E8D5-4031-BB38-A390632A758C}
+	EndGlobalSection
+EndGlobal
