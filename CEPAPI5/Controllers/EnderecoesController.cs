@@ -20,103 +20,22 @@ namespace CEPAPI5.Controllers
             _context = context;
         }
 
-        // GET: api/Enderecoes
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Endereco>>> GetEnderecos()
+        [HttpGet("{cep}")]
+        public async Task<ActionResult<Endereco>> GetEndereco(string cep)
         {
-            return await _context.Enderecos.ToListAsync();
-        }
-
-        // GET: api/Enderecoes/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Endereco>> GetEndereco(long id)
-        {
-            var endereco = await _context.Enderecos.Include(e => e.Bairro).Include(e => e.Cidade).Include(e => e.Cidade.Estado).FirstOrDefaultAsync(e => e.Id == id);
-            //var endereco = await _context.Enderecos.FindAsync(id);
-
-            if (endereco == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
-            }
+               var endereco = await _context.Enderecos.Include(e => e.Bairro).Include(e => e.Cidade).Include(e => e.Cidade.Estado).FirstOrDefaultAsync(e => e.CdPostal == cep);
 
-            return endereco;
-        }
-
-        // PUT: api/Enderecoes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutEndereco(long id, Endereco endereco)
-        {
-            if (id != endereco.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(endereco).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EnderecoExists(id))
+                if (endereco == null)
                 {
-                    return NotFound();
+                    return NotFound("O CEP não foi localizado, deve-se ter o formato XXXXX-XXX Ex. 12345-678");
                 }
-                else
-                {
-                    throw;
-                }
+
+                return endereco;
             }
 
-            return NoContent();
-        }
-
-        // POST: api/Enderecoes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Endereco>> PostEndereco(Endereco endereco)
-        {
-            _context.Enderecos.Add(endereco);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (EnderecoExists(endereco.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtAction("GetEndereco", new { id = endereco.Id }, endereco);
-        }
-
-        // DELETE: api/Enderecoes/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEndereco(long id)
-        {
-            var endereco = await _context.Enderecos.FindAsync(id);
-            if (endereco == null)
-            {
-                return NotFound();
-            }
-
-            _context.Enderecos.Remove(endereco);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool EnderecoExists(long id)
-        {
-            return _context.Enderecos.Any(e => e.Id == id);
+            return Ok("Formatação invalida");
         }
     }
 }
