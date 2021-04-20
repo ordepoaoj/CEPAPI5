@@ -11,11 +11,11 @@ namespace CEPAPI5.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EnderecoesController : ControllerBase
+    public class EnderecosController : ControllerBase
     {
         private readonly CEPContext _context;
 
-        public EnderecoesController(CEPContext context)
+        public EnderecosController(CEPContext context)
         {
             _context = context;
         }
@@ -23,19 +23,19 @@ namespace CEPAPI5.Controllers
         [HttpGet("{cep}")]
         public async Task<ActionResult<Endereco>> GetEndereco(string cep)
         {
-            if (ModelState.IsValid)
+            if (cep.Length == 9)
             {
                var endereco = await _context.Enderecos.Include(e => e.Bairro).Include(e => e.Cidade).Include(e => e.Cidade.Estado).FirstOrDefaultAsync(e => e.CdPostal == cep);
 
                 if (endereco == null)
                 {
-                    return NotFound("O CEP não foi localizado, deve-se ter o formato XXXXX-XXX Ex. 12345-678");
+                    return NotFound("O CEP não foi localizado");
                 }
 
-                return endereco;
+                return Ok(endereco);
             }
 
-            return Ok("Formatação invalida");
+            return Ok("O código " + cep + " Encontra-se em uma formatação invalida, deve-se ter o formato XXXXX-XXX Ex. 12345-678");
         }
     }
 }
