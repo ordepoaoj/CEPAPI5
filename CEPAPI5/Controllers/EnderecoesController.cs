@@ -23,7 +23,10 @@ namespace CEPAPI5.Controllers
         [HttpGet("{cep}")]
         public async Task<ActionResult<Endereco>> GetEndereco(string cep)
         {
-            if (cep.Length == 9)
+            if (cep == null)
+                return Ok("O valor encaminhado é nulo, favor utilizar uma formatação valida.");
+
+            if (cep.Length == 8)
             {
                var endereco = await _context.Enderecos.Include(e => e.Bairro).Include(e => e.Cidade).Include(e => e.Cidade.Estado).FirstOrDefaultAsync(e => e.CdPostal == cep);
 
