@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CEPAPI5.Models;
+
 
 namespace CEPAPI5.Controllers
 {
@@ -23,6 +20,7 @@ namespace CEPAPI5.Controllers
         [HttpGet("{cep}")]
         public async Task<ActionResult<Endereco>> GetEndereco(string cep)
         {
+            
             if (cep == null)
                 return Ok("O valor encaminhado é nulo, favor utilizar uma formatação valida.");
 
