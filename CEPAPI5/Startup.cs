@@ -46,8 +46,6 @@ namespace CEPAPI5
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CEPAPI5 v1"));
             }
 
             app.UseHttpsRedirection();

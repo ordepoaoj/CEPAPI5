@@ -9,7 +9,7 @@ using CEPAPI5.Models;
 
 namespace CEPAPI5.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/cep")]
     [ApiController]
     public class EnderecoesController : ControllerBase
     {
@@ -31,7 +31,10 @@ namespace CEPAPI5.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Endereco>> GetEndereco(long id)
         {
-            var endereco = await _context.Enderecos.Include(e => e.Bairro).Include(e => e.Cidade).Include(e => e.Cidade.Estado).FirstOrDefaultAsync(e => e.Id == id);
+            if (!Cep.validar(id.ToString()))
+                return  NotFound("Formato de CEP invalido");
+
+            var endereco = await _context.Enderecos.Include(e => e.Bairro).Include(e => e.Cidade).Include(e => e.Cidade.Estado).FirstOrDefaultAsync(e => e.CdPostal == id.ToString());
             //var endereco = await _context.Enderecos.FindAsync(id);
 
             if (endereco == null)
