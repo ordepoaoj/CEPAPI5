@@ -1,4 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CEPAPI5.Models
 {
@@ -10,6 +15,7 @@ namespace CEPAPI5.Models
         [ForeignKey("Id")]
         public Cidade Cidade { get; set; }
         [ForeignKey("Id")]
+        [JsonIgnore]
         public Estado Estado { get; set; }
     }
 }
